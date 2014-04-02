@@ -8,7 +8,7 @@ underscore.factory('_', function() {
 }); 
 */
 var stuffAppServices = angular.module('stuffAppServices', []);
-stuffAppServices.factory('ItemsData', function() {
+stuffAppServices.factory('ItemsData', function($http) {
   var lsid = 'groceries';
   var inidata = [
     {lid:'26',product:'banana', done:false},
@@ -25,9 +25,18 @@ stuffAppServices.factory('ItemsData', function() {
   ];
     return {
     get: function () {
+      //
+      var url='http://localhost:3000/api/products/4';
+      var promise=$http.get(url).then(function(data) {
+        console.log(data);
+        return data;
+      });
+      return promise;
+      /*      
       var ret = JSON.parse(localStorage.getItem(lsid)) || inidata;
-      //console.log(ret);
+      console.log(ret);
       return ret;
+      */
     },
     put: function(list){
       console.log(list);

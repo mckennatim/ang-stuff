@@ -17,7 +17,10 @@ stuffAppControllers.controller('TimeCtrl', function ($scope) {
 });
 
 stuffAppControllers.controller('InpCtrl', function ($scope, ItemsData, $filter) {
-  var list= $scope.list = ItemsData.get();
+  ItemsData.get().then(function(d){
+    var list= $scope.list = d;
+    console.log(list)
+  });
   $scope.$watch('list', function(newValue, oldValue){
     $scope.cnt = $filter('filter')(list, {done:false}).length;
     if (newValue !== oldValue) { // This prevents unneeded calls to the local storage
